@@ -1,5 +1,6 @@
 package provider;
 
+import provider.filter.QueueFilterWrapper;
 import provider.model.ChatMessage;
 import provider.reader.twitch.TwitchChatReader;
 import provider.reader.youtube.YoutubeChatReader;
@@ -12,16 +13,19 @@ public class App {
     public static void main(String[] args) throws IOException, InterruptedException {
         ConcurrentLinkedQueue<ChatMessage> queue = new ConcurrentLinkedQueue<>();
 
-        TwitchChatReader bot = new TwitchChatReader("guzu", queue);
+
+        QueueFilterWrapper queueFilterWrapper = new QueueFilterWrapper(queue);
+
+        TwitchChatReader bot = new TwitchChatReader("guzu", queueFilterWrapper);
         bot.registerFeatures();
         bot.start();
 
-        YoutubeChatReader youtubeChatReader = new YoutubeChatReader("dvOJQba8VFs", queue);
+        YoutubeChatReader youtubeChatReader = new YoutubeChatReader("dvOJQba8VFs", queueFilterWrapper);
         youtubeChatReader.start();
 
         while (true) {
-            if (!queue.isEmpty()) {
-                ChatMessage chatMessage = queue.poll();
+            if (queueFilterWrapper.hasElements()) {
+                ChatMessage chatMessage = queueFilterWrapper.poll();
                 System.out.println(chatMessage.getStreamingSite() + " " + chatMessage.getMessage());
             }
         }

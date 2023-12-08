@@ -3,6 +3,7 @@ package provider.reader.twitch;
 import com.github.philippheuer.events4j.simple.SimpleEventHandler;
 import com.github.twitch4j.ITwitchClient;
 import com.github.twitch4j.TwitchClientBuilder;
+import provider.filter.QueueFilterWrapper;
 
 import java.util.concurrent.ConcurrentLinkedQueue;
 
@@ -10,13 +11,13 @@ public class TwitchChatReader {
 
     private ITwitchClient twitchClient;
     private String channel;
-    private ConcurrentLinkedQueue queue;
+    private QueueFilterWrapper queueFilterWrapper;
 
-    public TwitchChatReader(String channel, ConcurrentLinkedQueue queue) {
+    public TwitchChatReader(String channel, QueueFilterWrapper queueFilterWrapper) {
 
         TwitchClientBuilder clientBuilder = TwitchClientBuilder.builder();
         this.channel = channel;
-        this.queue = queue;
+        this.queueFilterWrapper = queueFilterWrapper;
 
         twitchClient = clientBuilder
                 .withClientId("justinfan1234") // jusinfanXXXX is used for read only access.
@@ -29,7 +30,7 @@ public class TwitchChatReader {
         SimpleEventHandler eventHandler = twitchClient.getEventManager().getEventHandler(SimpleEventHandler.class);
 
         // Register Event-based features
-        WriteChannelChatToQueue writeChannelChatToQueue = new WriteChannelChatToQueue(eventHandler, queue);
+        WriteChannelChatToQueue writeChannelChatToQueue = new WriteChannelChatToQueue(eventHandler, queueFilterWrapper);
     }
 
     public void start() {

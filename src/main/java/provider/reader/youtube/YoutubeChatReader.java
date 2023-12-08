@@ -1,6 +1,7 @@
 package provider.reader.youtube;
 
 import com.google.gson.*;
+import provider.filter.QueueFilterWrapper;
 import provider.model.ChatMessage;
 
 import java.io.IOException;
@@ -26,14 +27,14 @@ public class YoutubeChatReader {
     private String apiKey;
     private String continuation;
     private String clientVersion;
-    private ConcurrentLinkedQueue queue;
+    private QueueFilterWrapper queueFilterWrapper;
     private HttpClient httpClient = HttpClient.newHttpClient();
     private ArrayList<String> chatMessages = new ArrayList<>();
     private Gson gson = new GsonBuilder().create();
 
-    public YoutubeChatReader(String liveVideoId, ConcurrentLinkedQueue queue) throws IOException, InterruptedException {
+    public YoutubeChatReader(String liveVideoId, QueueFilterWrapper queueFilterWrapper) throws IOException, InterruptedException {
         this.liveVideoId = liveVideoId;
-        this.queue = queue;
+        this.queueFilterWrapper = queueFilterWrapper;
         initialize();
     }
 
@@ -113,7 +114,7 @@ public class YoutubeChatReader {
                     update();
                     for (String message : getChatMessages()) {
 //                System.out.println(message);
-                        boolean wasAdded = queue.offer(ChatMessage.builder().streamingSite("Youtube").message(message).userName("none yet").build());
+                        boolean wasAdded = queueFilterWrapper.offer(ChatMessage.builder().streamingSite("Youtube").message(message).userName("none yet").build());
                         // TODO handle not added
                     }
                     try {

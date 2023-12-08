@@ -2,29 +2,28 @@ package provider.reader.twitch;
 
 import com.github.philippheuer.events4j.simple.SimpleEventHandler;
 import com.github.twitch4j.chat.events.channel.ChannelMessageEvent;
+import provider.filter.QueueFilterWrapper;
 import provider.model.ChatMessage;
-
-import java.util.concurrent.ConcurrentLinkedQueue;
 
 public class WriteChannelChatToQueue {
 
-    private ConcurrentLinkedQueue queue;
+    private QueueFilterWrapper queueFilterWrapper;
 
     /**
      * Register events of this class with the EventManager/EventHandler
      *
      * @param eventHandler SimpleEventHandler
      */
-    public WriteChannelChatToQueue(SimpleEventHandler eventHandler, ConcurrentLinkedQueue queue) {
+    public WriteChannelChatToQueue(SimpleEventHandler eventHandler, QueueFilterWrapper queueFilterWrapper) {
         eventHandler.onEvent(ChannelMessageEvent.class, event -> onChannelMessage(event));
-        this.queue = queue;
+        this.queueFilterWrapper = queueFilterWrapper;
     }
 
     /**
      * Subscribe to the ChannelMessage Event and write the output to the console
      */
     public void onChannelMessage(ChannelMessageEvent event) {
-        boolean wasAdded = queue.offer(ChatMessage.builder().streamingSite("Twitch").message(event.getMessage()).userName(event.getUser().getName()).build());
+        boolean wasAdded = queueFilterWrapper.offer(ChatMessage.builder().streamingSite("Twitch").message(event.getMessage()).userName(event.getUser().getName()).build());
         // TODO handle wasAdded when false, log?
     }
 
