@@ -9,11 +9,11 @@ import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
-import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -53,6 +53,11 @@ public class YoutubeChatReader {
         Matcher topOnlyContinuationMatcher = Pattern.compile("\"selected\":true,\"continuation\":\\{\"reloadContinuationData\":\\{\"continuation\":\"([^\"]*)").matcher(response.body().toString());
         if (topOnlyContinuationMatcher.find()) {
             this.continuation = topOnlyContinuationMatcher.group(1);
+        }
+
+        Matcher clientVersionMatcher = Pattern.compile("\"INNERTUBE_CLIENT_VERSION\":\"(.+?)\"").matcher(response.body().toString());
+        if (clientVersionMatcher.find()) {
+            this.clientVersion = clientVersionMatcher.group(1);
         }
     }
 
@@ -95,28 +100,25 @@ public class YoutubeChatReader {
         for (JsonElement action : actions) {
 
             JsonObject messageObject = getJsonObjectWithNullGuard(action, "addChatItemAction", "item", "liveChatTextMessageRenderer", "message");
-            if (messageObject == null) {
+            JsonObject authorObject = getJsonObjectWithNullGuard(action, "addChatItemAction", "item", "liveChatTextMessageRenderer", "authorName");
+            if (messageObject == null || authorObject == null) {
                 continue;
             }
             JsonElement textElement = ((JsonArray) messageObject.get("runs")).get(0).getAsJsonObject().get("text");
-            if (textElement != null) {
-                chatMessages.add(textElement.getAsString());
+            JsonElement authorElement = authorObject.get("simpleText");
+            if (textElement != null && authorObject != null) {
+                queueFilterWrapper.offer(ChatMessage.builder().streamingSite("Youtube").message(textElement.getAsString()).userName(authorElement.getAsString()).timeCreated(LocalDateTime.now()).build());
             }
         }
     }
 
 
-    public void start() throws IOException, InterruptedException {
+    public void start() {
 
         new Thread(() -> {
             try {
                 while (true) {
                     update();
-                    for (String message : getChatMessages()) {
-//                System.out.println(message);
-                        boolean wasAdded = queueFilterWrapper.offer(ChatMessage.builder().streamingSite("Youtube").message(message).userName("none yet").build());
-                        // TODO handle not added
-                    }
                     try {
                         Thread.sleep(1000);
                     } catch (InterruptedException e) {
@@ -126,10 +128,6 @@ public class YoutubeChatReader {
             } catch (Exception ex) {
             }
         }).start();
-
-//        while (true) {
-//
-//        }
     }
 
 
@@ -146,9 +144,6 @@ public class YoutubeChatReader {
     }
 
     private HttpRequest buildRequest() {
-        //        SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd");
-//        this.clientVersion = format.format(new Date(System.currentTimeMillis() - (24 * 60 * 1000))) + ".06.00";
-        this.clientVersion = "2.20231205.06.00"; // TODO above client versioon code does not work, hardcode rework to get it
 
         Map<String, Object> jsonMap = new LinkedHashMap<>();
         Map<String, Object> context = new LinkedHashMap<>();
@@ -156,7 +151,7 @@ public class YoutubeChatReader {
         jsonMap.put("context", context);
         context.put("client", client);
         client.put("clientName", "WEB");
-        client.put("clientVersion", clientVersion);
+        client.put("clientVersion", this.clientVersion);
         jsonMap.put("continuation", this.continuation);
 
         String json = this.gson.toJson(jsonMap);
@@ -168,14 +163,10 @@ public class YoutubeChatReader {
         Map<String, String> headers = new HashMap<>();
         headers.put("Content-Type", "application/json");
         headers.put("Accept-Charset", "utf-8");
-        headers.put("User-Agent", userAgent);
+        headers.put("User-Agent", this.userAgent);
 
         headers.forEach((headerKey, headerValue) -> postBuilder.header(headerKey, headerValue));
 
         return postBuilder.build();
-    }
-
-    public ArrayList<String> getChatMessages() {
-        return chatMessages;
     }
 }

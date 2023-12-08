@@ -5,6 +5,8 @@ import com.github.twitch4j.chat.events.channel.ChannelMessageEvent;
 import provider.filter.QueueFilterWrapper;
 import provider.model.ChatMessage;
 
+import java.time.LocalDateTime;
+
 public class WriteChannelChatToQueue {
 
     private QueueFilterWrapper queueFilterWrapper;
@@ -23,7 +25,8 @@ public class WriteChannelChatToQueue {
      * Subscribe to the ChannelMessage Event and write the output to the console
      */
     public void onChannelMessage(ChannelMessageEvent event) {
-        boolean wasAdded = queueFilterWrapper.offer(ChatMessage.builder().streamingSite("Twitch").message(event.getMessage()).userName(event.getUser().getName()).build());
+        boolean wasAdded = queueFilterWrapper.offer(ChatMessage.builder().streamingSite("Twitch").message(event.getMessage())
+                .userName(event.getUser().getName()).timeCreated(LocalDateTime.now()).build());
         // TODO handle wasAdded when false, log?
     }
 

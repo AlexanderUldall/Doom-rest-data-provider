@@ -13,14 +13,13 @@ public class App {
     public static void main(String[] args) throws IOException, InterruptedException {
         ConcurrentLinkedQueue<ChatMessage> queue = new ConcurrentLinkedQueue<>();
 
-
         QueueFilterWrapper queueFilterWrapper = new QueueFilterWrapper(queue);
 
-        TwitchChatReader bot = new TwitchChatReader("guzu", queueFilterWrapper);
+        TwitchChatReader bot = new TwitchChatReader("zackrawrr", queueFilterWrapper);
         bot.registerFeatures();
         bot.start();
 
-        YoutubeChatReader youtubeChatReader = new YoutubeChatReader("dvOJQba8VFs", queueFilterWrapper);
+        YoutubeChatReader youtubeChatReader = new YoutubeChatReader("-J3jCkIIN2U", queueFilterWrapper);
         youtubeChatReader.start();
 
         while (true) {
