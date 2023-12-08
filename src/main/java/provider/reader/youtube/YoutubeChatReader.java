@@ -86,8 +86,7 @@ public class YoutubeChatReader {
             this.continuation = ((JsonObject) ContinuationData).get("continuation").getAsString();
         }
 
-        // First pass through of youtube chat will get ALL messages from the chat
-        // We only want the ones from after the program was started
+        // First pass through of youtube chat will get a few of the previous messages
         if (firstRun) {
             firstRun = false;
             return;
