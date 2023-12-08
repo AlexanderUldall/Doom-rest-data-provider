@@ -8,8 +8,7 @@ public class QueueFilterWrapper {
 
     ConcurrentLinkedQueue<ChatMessage> queue = new ConcurrentLinkedQueue<>();
 
-    public QueueFilterWrapper(ConcurrentLinkedQueue<ChatMessage> queue) {
-        this.queue = queue;
+    public QueueFilterWrapper() {
     }
 
     public boolean hasElements() {

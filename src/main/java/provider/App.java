@@ -11,9 +11,8 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 public class App {
 
     public static void main(String[] args) throws IOException, InterruptedException {
-        ConcurrentLinkedQueue<ChatMessage> queue = new ConcurrentLinkedQueue<>();
 
-        QueueFilterWrapper queueFilterWrapper = new QueueFilterWrapper(queue);
+        QueueFilterWrapper queueFilterWrapper = new QueueFilterWrapper();
 
         TwitchChatReader bot = new TwitchChatReader("zackrawrr", queueFilterWrapper);
         bot.registerFeatures();
