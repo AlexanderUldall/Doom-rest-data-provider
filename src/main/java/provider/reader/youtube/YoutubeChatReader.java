@@ -103,7 +103,7 @@ public class YoutubeChatReader {
             if (messageObject == null || authorObject == null) {
                 continue;
             }
-            JsonElement textElement = ((JsonArray) messageObject.get("runs")).get(0).getAsJsonObject().get("text");
+            JsonElement textElement = ((JsonArray) messageObject.get("runs")).get(0).getAsJsonObject().get("text"); // todo is it alwayus get(0)?
             JsonElement authorElement = authorObject.get("simpleText");
             if (textElement != null && authorObject != null) {
                 queueFilterWrapper.offer(ChatMessage.builder().streamingSite("Youtube").message(textElement.getAsString()).userName(authorElement.getAsString()).timeCreated(LocalDateTime.now()).build());
