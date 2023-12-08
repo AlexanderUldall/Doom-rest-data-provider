@@ -111,7 +111,6 @@ public class YoutubeChatReader {
         }
     }
 
-
     public void start() {
 
         new Thread(() -> {
@@ -128,7 +127,6 @@ public class YoutubeChatReader {
             }
         }).start();
     }
-
 
     private JsonObject getJsonObjectWithNullGuard(JsonElement jsonElement, String... keys) {
         JsonObject jsonObject = (JsonObject) jsonElement;
