@@ -7,7 +7,6 @@ public class QueueConsumer {
 
     QueueFilterWrapper queueFilterWrapper;
 
-
     public QueueConsumer(QueueFilterWrapper queueFilterWrapper) {
         this.queueFilterWrapper = queueFilterWrapper;
     }
