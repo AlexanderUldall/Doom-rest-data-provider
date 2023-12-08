@@ -14,7 +14,6 @@ public class App {
         QueueFilterWrapper queueFilterWrapper = new QueueFilterWrapper();
 
         TwitchChatReader bot = new TwitchChatReader("zackrawrr", queueFilterWrapper);
-        bot.registerFeatures();
         bot.start();
 
         YoutubeChatReader youtubeChatReader = new YoutubeChatReader("-J3jCkIIN2U", queueFilterWrapper);
