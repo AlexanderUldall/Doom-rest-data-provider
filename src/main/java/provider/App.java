@@ -1,7 +1,7 @@
 package provider;
 
+import provider.consumer.QueueConsumer;
 import provider.filter.QueueFilterWrapper;
-import provider.model.ChatMessage;
 import provider.reader.twitch.TwitchChatReader;
 import provider.reader.youtube.YoutubeChatReader;
 
@@ -19,11 +19,7 @@ public class App {
         YoutubeChatReader youtubeChatReader = new YoutubeChatReader("-J3jCkIIN2U", queueFilterWrapper);
         youtubeChatReader.start();
 
-        while (true) {
-            if (queueFilterWrapper.hasElements()) {
-                ChatMessage chatMessage = queueFilterWrapper.poll();
-                System.out.println(chatMessage.getStreamingSite() + " " + chatMessage.getMessage());
-            }
-        }
+        QueueConsumer queueConsumer = new QueueConsumer(queueFilterWrapper);
+        queueConsumer.start();
     }
 }

@@ -11,9 +11,6 @@ public class QueueFilterWrapper {
     private ConcurrentLinkedQueue<ChatMessage> queue = new ConcurrentLinkedQueue<>();
     private HashMap<String, LocalDateTime> latestPlayerMonsterSpawnMap = new HashMap();
 
-    public QueueFilterWrapper() {
-    }
-
     public boolean hasElements() {
         return !queue.isEmpty();
     }
