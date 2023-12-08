@@ -6,7 +6,6 @@ import provider.reader.twitch.TwitchChatReader;
 import provider.reader.youtube.YoutubeChatReader;
 
 import java.io.IOException;
-import java.util.concurrent.ConcurrentLinkedQueue;
 
 public class App {
 
