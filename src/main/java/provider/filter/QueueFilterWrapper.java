@@ -2,11 +2,14 @@ package provider.filter;
 
 import provider.model.ChatMessage;
 
+import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 public class QueueFilterWrapper {
 
-    ConcurrentLinkedQueue<ChatMessage> queue = new ConcurrentLinkedQueue<>();
+    private ConcurrentLinkedQueue<ChatMessage> queue = new ConcurrentLinkedQueue<>();
+    private HashMap<String, LocalDateTime> latestPlayerMonsterSpawnMap = new HashMap();
 
     public QueueFilterWrapper() {
     }
@@ -16,17 +19,18 @@ public class QueueFilterWrapper {
     }
 
     public ChatMessage poll() {
-        return (ChatMessage) queue.poll();
+        return queue.poll();
     }
 
     public boolean offer(ChatMessage chatMessage) {
         // TODO do syntax filter here eg MANCUBUS X Y
-        boolean validSyntax = chatMessage.getMessage().contains("a"); // palceholder
+        boolean validSyntax = chatMessage.getMessage().contains("a"); // placeholder
 
-        // TODO Add check to ensure one user doesnt spam spawn moster
-        boolean notToRecentMonsterSpawn = true;
+        LocalDateTime timeCreated = latestPlayerMonsterSpawnMap.get(chatMessage.getUserName());
+        boolean allowMonsterSpawn = timeCreated == null || timeCreated.isAfter(LocalDateTime.now().plusMinutes(1));
 
-        if (validSyntax && notToRecentMonsterSpawn) {
+        if (validSyntax && allowMonsterSpawn) {
+            latestPlayerMonsterSpawnMap.put(chatMessage.getUserName(), LocalDateTime.now());
             return queue.offer(chatMessage);
         }
         return true;
