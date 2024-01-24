@@ -2,7 +2,6 @@ package provider.reader.kick;
 
 import provider.filter.QueueFilterWrapper;
 import provider.model.ChatMessage;
-import provider.reader.StreamReaderI;
 import uk.co.mistyknives.kick4j.Kick4J;
 import uk.co.mistyknives.kick4j.Kick4JBuilder;
 import uk.co.mistyknives.kick4j.events.EventType;

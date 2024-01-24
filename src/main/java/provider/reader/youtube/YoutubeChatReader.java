@@ -3,7 +3,6 @@ package provider.reader.youtube;
 import com.google.gson.*;
 import provider.filter.QueueFilterWrapper;
 import provider.model.ChatMessage;
-import provider.reader.StreamReaderI;
 
 import java.io.IOException;
 import java.net.URI;

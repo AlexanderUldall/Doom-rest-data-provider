@@ -6,7 +6,7 @@ import com.github.twitch4j.TwitchClientBuilder;
 import com.github.twitch4j.chat.events.channel.ChannelMessageEvent;
 import provider.Enums.StreamingSite;
 import provider.filter.QueueFilterWrapper;
-import provider.reader.StreamReader;
+import provider.reader.base.StreamReader;
 
 public class TwitchChatReader extends StreamReader {
 

@@ -1,4 +1,4 @@
-package provider.reader;
+package provider.reader.base;
 
 import lombok.AllArgsConstructor;
 import provider.Enums.StreamingSite;
