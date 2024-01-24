@@ -11,13 +11,11 @@ import provider.reader.base.StreamReader;
 public class TwitchChatReader extends StreamReader {
 
     private ITwitchClient twitchClient;
-    private String channel;
 
-    public TwitchChatReader(String channel, QueueFilterWrapper queueFilterWrapper) {
-        super(queueFilterWrapper);
+    public TwitchChatReader(String channelId, QueueFilterWrapper queueFilterWrapper) {
+        super(queueFilterWrapper, channelId);
 
         TwitchClientBuilder clientBuilder = TwitchClientBuilder.builder();
-        this.channel = channel;
         this.twitchClient = clientBuilder
                 .withClientId("justinfan1234") // justinfanXXXX is used for read only access.
                 .withClientSecret("NOTUSED") // Password not used for read only access
@@ -31,6 +29,6 @@ public class TwitchChatReader extends StreamReader {
 
     @Override
     public void start() {
-        twitchClient.getChat().joinChannel(channel);
+        twitchClient.getChat().joinChannel(getChannelId());
     }
 }

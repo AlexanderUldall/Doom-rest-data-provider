@@ -1,15 +1,15 @@
 package provider.reader.youtube;
 
 import com.google.gson.*;
+import provider.Enums.StreamingSite;
 import provider.filter.QueueFilterWrapper;
-import provider.model.ChatMessage;
+import provider.reader.base.StreamReader;
 
 import java.io.IOException;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -17,7 +17,7 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class YoutubeChatReader /*implements StreamReaderI*/ {
+public class YoutubeChatReader extends StreamReader {
 
     private static final String userAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/98.0.4758.102 Safari/537.36,gzip(gfe)";
     private static final String liveChatApi = "https://www.youtube.com/youtubei/v1/live_chat/get_live_chat?key="; // view live chat
@@ -27,14 +27,13 @@ public class YoutubeChatReader /*implements StreamReaderI*/ {
     private String apiKey;
     private String continuation;
     private String clientVersion;
-    private QueueFilterWrapper queueFilterWrapper;
     private HttpClient httpClient = HttpClient.newHttpClient();
     private ArrayList<String> chatMessages = new ArrayList<>();
     private Gson gson = new GsonBuilder().create();
 
     public YoutubeChatReader(String liveVideoId, QueueFilterWrapper queueFilterWrapper) throws IOException, InterruptedException {
+        super(queueFilterWrapper, "NOTUSED");
         this.liveVideoId = liveVideoId;
-        this.queueFilterWrapper = queueFilterWrapper;
         initialize();
     }
 
@@ -86,7 +85,7 @@ public class YoutubeChatReader /*implements StreamReaderI*/ {
             this.continuation = ((JsonObject) ContinuationData).get("continuation").getAsString();
         }
 
-        // First pass through of youtube chat will get a few of the previous messages
+        // First pass through of YouTube chat will get a few of the previous messages
         if (firstRun) {
             firstRun = false;
             return;
@@ -106,7 +105,7 @@ public class YoutubeChatReader /*implements StreamReaderI*/ {
             JsonElement textElement = ((JsonArray) messageObject.get("runs")).get(0).getAsJsonObject().get("text"); // todo is it alwayus get(0)?
             JsonElement authorElement = authorObject.get("simpleText");
             if (textElement != null && authorObject != null) {
-                queueFilterWrapper.offer(ChatMessage.builder().streamingSite("Youtube").message(textElement.getAsString()).userName(authorElement.getAsString()).timeCreated(LocalDateTime.now()).build());
+                onChannelMessage(StreamingSite.YOUTUBE, authorElement.getAsString(), textElement.getAsString());
             }
         }
     }
