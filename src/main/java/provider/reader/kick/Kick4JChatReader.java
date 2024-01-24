@@ -1,5 +1,6 @@
 package provider.reader.kick;
 
+import lombok.extern.slf4j.Slf4j;
 import provider.Enums.StreamingSite;
 import provider.filter.QueueFilterWrapper;
 import provider.reader.base.StreamReader;
@@ -9,6 +10,7 @@ import uk.co.mistyknives.kick4j.events.EventType;
 import uk.co.mistyknives.kick4j.events.impl.chatroom.ChatMessageEvent;
 import uk.co.mistyknives.kick4j.util.Logger;
 
+@Slf4j
 public class Kick4JChatReader extends StreamReader {
     private Kick4J client;
 
@@ -24,5 +26,6 @@ public class Kick4JChatReader extends StreamReader {
 
     public void start() {
         client.login();
+        log.info("Kick4JChatReader started");
     }
 }

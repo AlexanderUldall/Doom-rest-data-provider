@@ -1,6 +1,7 @@
 package provider.reader.youtube;
 
 import com.google.gson.*;
+import lombok.extern.slf4j.Slf4j;
 import provider.Enums.StreamingSite;
 import provider.filter.QueueFilterWrapper;
 import provider.reader.base.StreamReader;
@@ -17,6 +18,7 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+@Slf4j
 public class YoutubeChatReader extends StreamReader {
 
     private static final String userAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/98.0.4758.102 Safari/537.36,gzip(gfe)";
@@ -125,6 +127,7 @@ public class YoutubeChatReader extends StreamReader {
             } catch (Exception ex) {
             }
         }).start();
+        log.info("YoutubeChatReader started");
     }
 
     private JsonObject getJsonObjectWithNullGuard(JsonElement jsonElement, String... keys) {

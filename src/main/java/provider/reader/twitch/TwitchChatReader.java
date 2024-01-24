@@ -4,10 +4,12 @@ import com.github.philippheuer.events4j.simple.SimpleEventHandler;
 import com.github.twitch4j.ITwitchClient;
 import com.github.twitch4j.TwitchClientBuilder;
 import com.github.twitch4j.chat.events.channel.ChannelMessageEvent;
+import lombok.extern.slf4j.Slf4j;
 import provider.Enums.StreamingSite;
 import provider.filter.QueueFilterWrapper;
 import provider.reader.base.StreamReader;
 
+@Slf4j
 public class TwitchChatReader extends StreamReader {
 
     private ITwitchClient twitchClient;
@@ -30,5 +32,6 @@ public class TwitchChatReader extends StreamReader {
     @Override
     public void start() {
         twitchClient.getChat().joinChannel(getChannelId());
+        log.info("TwitchChatReader started");
     }
 }
