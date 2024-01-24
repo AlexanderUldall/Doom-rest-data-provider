@@ -16,7 +16,7 @@
             </PatternLayout>
 
             <Policies>
-                <OnStartupTriggeringPolicy />
+                <NoOpTriggeringPolicy />
             </Policies>
 
             <DefaultRolloverStrategy max="${MAX}" />
