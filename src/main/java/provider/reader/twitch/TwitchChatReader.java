@@ -4,23 +4,21 @@ import com.github.philippheuer.events4j.simple.SimpleEventHandler;
 import com.github.twitch4j.ITwitchClient;
 import com.github.twitch4j.TwitchClientBuilder;
 import com.github.twitch4j.chat.events.channel.ChannelMessageEvent;
+import provider.Enums.StreamingSite;
 import provider.filter.QueueFilterWrapper;
-import provider.model.ChatMessage;
-import provider.reader.StreamReaderI;
+import provider.reader.StreamReader;
 
-import java.time.LocalDateTime;
-
-public class TwitchChatReader implements StreamReaderI {
+public class TwitchChatReader extends StreamReader {
 
     private ITwitchClient twitchClient;
     private String channel;
 
     public TwitchChatReader(String channel, QueueFilterWrapper queueFilterWrapper) {
+        super(queueFilterWrapper);
 
         TwitchClientBuilder clientBuilder = TwitchClientBuilder.builder();
         this.channel = channel;
-
-        twitchClient = clientBuilder
+        this.twitchClient = clientBuilder
                 .withClientId("justinfan1234") // justinfanXXXX is used for read only access.
                 .withClientSecret("NOTUSED") // Password not used for read only access
                 .withEnableChat(true)
@@ -28,15 +26,10 @@ public class TwitchChatReader implements StreamReaderI {
 
         SimpleEventHandler eventHandler = twitchClient.getEventManager().getEventHandler(SimpleEventHandler.class);
 
-        eventHandler.onEvent(ChannelMessageEvent.class, event -> onChannelMessage(event, queueFilterWrapper));
+        eventHandler.onEvent(ChannelMessageEvent.class, event -> onChannelMessage(StreamingSite.TWITCH, event.getUser().getName(), event.getMessage()));
     }
 
-    public void onChannelMessage(ChannelMessageEvent event, QueueFilterWrapper queueFilterWrapper) {
-        boolean wasAdded = queueFilterWrapper.offer(ChatMessage.builder().streamingSite("Twitch").message(event.getMessage())
-                .userName(event.getUser().getName()).timeCreated(LocalDateTime.now()).build());
-        // TODO handle wasAdded when false, log?
-    }
-
+    @Override
     public void start() {
         twitchClient.getChat().joinChannel(channel);
     }

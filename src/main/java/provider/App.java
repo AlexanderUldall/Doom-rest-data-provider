@@ -14,14 +14,14 @@ public class App {
 
         QueueFilterWrapper queueFilterWrapper = new QueueFilterWrapper();
 
-        TwitchChatReader twitchChatReader = new TwitchChatReader("zackrawrr", queueFilterWrapper);
+        TwitchChatReader twitchChatReader = new TwitchChatReader("xaryu", queueFilterWrapper);
         twitchChatReader.start();
 
-        YoutubeChatReader youtubeChatReader = new YoutubeChatReader("-J3jCkIIN2U", queueFilterWrapper);
-        youtubeChatReader.start();
+//        YoutubeChatReader youtubeChatReader = new YoutubeChatReader("-J3jCkIIN2U", queueFilterWrapper);
+//        youtubeChatReader.start();
 
-        Kick4JChatReader kick4JChatReader = new Kick4JChatReader("1563861",queueFilterWrapper);
-        kick4JChatReader.start();
+//        Kick4JChatReader kick4JChatReader = new Kick4JChatReader("1563861",queueFilterWrapper);
+//        kick4JChatReader.start();
 
         QueueConsumer queueConsumer = new QueueConsumer(queueFilterWrapper);
         queueConsumer.start();

@@ -11,7 +11,7 @@ import uk.co.mistyknives.kick4j.util.Logger;
 
 import java.time.LocalDateTime;
 
-public class Kick4JChatReader implements StreamReaderI {
+public class Kick4JChatReader/* implements StreamReaderI */{
     private Kick4J client;
     private String channel;
 
