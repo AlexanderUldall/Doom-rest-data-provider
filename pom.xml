@@ -24,7 +24,6 @@
             <artifactId>twitch4j</artifactId>
             <version>1.18.0</version>
         </dependency>
-
         <dependency>
             <groupId>com.github.MistyKnives</groupId>
             <artifactId>Kick4J</artifactId>
