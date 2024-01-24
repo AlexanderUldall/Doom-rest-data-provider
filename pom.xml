@@ -24,12 +24,20 @@
             <artifactId>twitch4j</artifactId>
             <version>1.18.0</version>
         </dependency>
-<!--         Kick4J bot has Intellij warning regarding vulnerability from its dependency of de.taimos:totp which imports commons-codec:commons-codec:jar:1.8-->
-<!--        https://devhub.checkmarx.com/cve-details/Cxeb68d52e-5509/?utm_source=jetbrains&utm_medium=referral&utm_campaign=idea-->
+
         <dependency>
             <groupId>com.github.MistyKnives</groupId>
             <artifactId>Kick4J</artifactId>
             <version>1.0</version>
+            <exclusions>
+                <!--        Kick4J bot has Intellij warning regarding vulnerability from its dependency of de.taimos:totp which imports commons-codec:commons-codec:jar:1.8-->
+                <!--        https://devhub.checkmarx.com/cve-details/Cxeb68d52e-5509/?utm_source=jetbrains&utm_medium=referral&utm_campaign=idea-->
+                <!--        Not use by us since we don't log in-->
+                <exclusion>
+                    <groupId>de.taimos</groupId>
+                    <artifactId>totp</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
 
         <dependency>
