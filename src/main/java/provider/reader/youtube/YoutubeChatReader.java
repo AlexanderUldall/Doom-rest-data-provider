@@ -3,6 +3,7 @@ package provider.reader.youtube;
 import com.google.gson.*;
 import provider.filter.QueueFilterWrapper;
 import provider.model.ChatMessage;
+import provider.reader.StreamReaderI;
 
 import java.io.IOException;
 import java.net.URI;
@@ -17,7 +18,7 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class YoutubeChatReader {
+public class YoutubeChatReader implements StreamReaderI {
 
     private static final String userAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/98.0.4758.102 Safari/537.36,gzip(gfe)";
     private static final String liveChatApi = "https://www.youtube.com/youtubei/v1/live_chat/get_live_chat?key="; // view live chat

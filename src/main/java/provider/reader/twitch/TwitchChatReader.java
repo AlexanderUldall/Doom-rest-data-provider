@@ -6,10 +6,11 @@ import com.github.twitch4j.TwitchClientBuilder;
 import com.github.twitch4j.chat.events.channel.ChannelMessageEvent;
 import provider.filter.QueueFilterWrapper;
 import provider.model.ChatMessage;
+import provider.reader.StreamReaderI;
 
 import java.time.LocalDateTime;
 
-public class TwitchChatReader {
+public class TwitchChatReader implements StreamReaderI {
 
     private ITwitchClient twitchClient;
     private String channel;
@@ -20,7 +21,7 @@ public class TwitchChatReader {
         this.channel = channel;
 
         twitchClient = clientBuilder
-                .withClientId("justinfan1234") // jusinfanXXXX is used for read only access.
+                .withClientId("justinfan1234") // justinfanXXXX is used for read only access.
                 .withClientSecret("NOTUSED") // Password not used for read only access
                 .withEnableChat(true)
                 .build();

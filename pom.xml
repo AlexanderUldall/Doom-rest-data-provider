@@ -1,50 +1,61 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <groupId>org.example</groupId>
-  <artifactId>youtube-live-chat-scraper</artifactId>
-  <version>1.0-SNAPSHOT</version>
-  <properties>
-    <maven.compiler.source>19</maven.compiler.source>
-    <maven.compiler.target>19</maven.compiler.target>
-  </properties>
-  <name>Archetype - youtube-live-chat-reader</name>
-  <url>http://maven.apache.org</url>
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>org.example</groupId>
+    <artifactId>youtube-live-chat-scraper</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <properties>
+        <maven.compiler.source>19</maven.compiler.source>
+        <maven.compiler.target>19</maven.compiler.target>
+    </properties>
+    <name>Archetype - youtube-live-chat-reader</name>
+    <url>http://maven.apache.org</url>
 
 
-  <dependencies>
-<!--    <dependency>-->
-<!--      <groupId>com.github.kusaanko</groupId>-->
-<!--      <artifactId>YouTubeLiveChat</artifactId>-->
-<!--      <version>1.5</version>-->
-<!--    </dependency>-->
-    <!-- https://mvnrepository.com/artifact/com.google.code.gson/gson -->
-    <dependency>
-      <groupId>com.google.code.gson</groupId>
-      <artifactId>gson</artifactId>
-      <version>2.10.1</version>
-    </dependency>
-    <dependency>
-      <groupId>com.github.twitch4j</groupId>
-      <artifactId>twitch4j</artifactId>
-      <version>1.18.0</version>
-    </dependency>
-    <!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
-    <dependency>
-      <groupId>org.projectlombok</groupId>
-      <artifactId>lombok</artifactId>
-      <version>1.18.30</version>
-      <scope>provided</scope>
-    </dependency>
-  </dependencies>
+    <dependencies>
+        <!--         Bots-->
+        <dependency>
+            <groupId>com.github.kusaanko</groupId>
+            <artifactId>YouTubeLiveChat</artifactId>
+            <version>1.5</version>
+        </dependency>
+        <dependency>
+            <groupId>com.github.twitch4j</groupId>
+            <artifactId>twitch4j</artifactId>
+            <version>1.18.0</version>
+        </dependency>
+<!--         Kick4J bot has Intellij warning regarding vulnerability from its dependency of de.taimos:totp which imports commons-codec:commons-codec:jar:1.8-->
+<!--        https://devhub.checkmarx.com/cve-details/Cxeb68d52e-5509/?utm_source=jetbrains&utm_medium=referral&utm_campaign=idea-->
+        <dependency>
+            <groupId>com.github.MistyKnives</groupId>
+            <artifactId>Kick4J</artifactId>
+            <version>1.0</version>
+        </dependency>
 
-  <repositories>
-<!--    <repository>-->
-<!--      <id>kusaanko-maven</id>-->
-<!--      <url>https://raw.githubusercontent.com/kusaanko/maven/main/</url>-->
-<!--      <releases>-->
-<!--        <enabled>true</enabled>-->
-<!--      </releases>-->
-<!--    </repository>-->
-  </repositories>
+        <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+            <version>2.10.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.30</version>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
+
+    <repositories>
+        <repository>
+            <id>kusaanko-maven</id>
+            <url>https://raw.githubusercontent.com/kusaanko/maven/main/</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+        </repository>
+        <repository>
+            <id>jitpack.io</id>
+            <url>https://jitpack.io</url>
+        </repository>
+    </repositories>
 </project>
