@@ -13,6 +13,7 @@ public class Configuration {
     private String youtubeChannelId;
     private String youtubeFrameworkChannelId;
     private String twitchChannelId;
+    private String twitchIRCChannelId;
 
     public Configuration() throws IOException {
         String rootPath = Thread.currentThread().getContextClassLoader().getResource("").getPath();
@@ -25,6 +26,7 @@ public class Configuration {
         this.youtubeChannelId = appProps.getProperty("youtubeChannelId");
         this.youtubeFrameworkChannelId = appProps.getProperty("youtubeFrameworkChannelId");
         this.twitchChannelId = appProps.getProperty("twitchChannelId");
+        this.twitchIRCChannelId = appProps.getProperty("twitchIRCChannelId");
 
     }
 }

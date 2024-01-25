@@ -6,6 +6,7 @@ import provider.consumer.QueueConsumer;
 import provider.filter.QueueFilterWrapper;
 import provider.reader.kick.Kick4JChatReader;
 import provider.reader.twitch.TwitchClientReaderFramework;
+import provider.reader.twitch.TwitchIRCReader;
 import provider.reader.youtube.YouTubeLiveChatReaderFramework;
 import provider.reader.youtube.YoutubeChatReader;
 
@@ -22,6 +23,11 @@ public class App {
         if (isNotBlank(configuration.getTwitchChannelId())) {
             TwitchClientReaderFramework twitchClientReaderFramework = new TwitchClientReaderFramework(configuration.getTwitchChannelId(), queueFilterWrapper);
             twitchClientReaderFramework.start();
+        }
+
+        if (isNotBlank(configuration.getTwitchIRCChannelId())) {
+            TwitchIRCReader twitchIRCReader = new TwitchIRCReader(configuration.getTwitchIRCChannelId(), queueFilterWrapper);
+            twitchIRCReader.start();
         }
 
         if (isNotBlank(configuration.getYoutubeChannelId())) {

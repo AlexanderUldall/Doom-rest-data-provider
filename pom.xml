@@ -38,6 +38,31 @@
                 </exclusion>
             </exclusions>
         </dependency>
+        <dependency>
+            <groupId>org.pircbotx</groupId>
+            <artifactId>pircbotx</artifactId>
+            <version>2.1</version>
+            <exclusions>
+                <!--        pircbotx bot has Intellij warning regarding vulnerability from its dependency of commons-codec:commons-codec:jar:1.8-->
+                <!--        https://devhub.checkmarx.com/cve-details/Cxeb68d52e-5509/?utm_source=jetbrains&utm_medium=referral&utm_campaign=idea-->
+                <!--        Not use by us since we don't log in-->
+                <exclusion>
+                    <groupId>commons-codec</groupId>
+                    <artifactId>commons-codec</artifactId>
+                </exclusion>
+<!--                <exclusion>-->
+<!--                    <groupId>com.google.guava</groupId>-->
+<!--                    <artifactId>guava</artifactId>-->
+<!--                </exclusion>-->
+            </exclusions>
+        </dependency>
+
+        <!--        Other depedencies -->
+<!--        <dependency>-->
+<!--            <groupId>com.google.guava</groupId>-->
+<!--            <artifactId>guava</artifactId>-->
+<!--            <version>31.0.1-jre</version>-->
+<!--        </dependency>-->
 
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>

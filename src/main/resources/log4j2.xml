@@ -28,7 +28,7 @@
     </Appenders>
 
     <Loggers>
-        <Logger name="com.roytuts" level="debug" />
+        <Logger name="org.pircbotx.InputParser" level="error" />
 
         <Logger name="org.springframework.web" level="info"
                 additivity="false" />
