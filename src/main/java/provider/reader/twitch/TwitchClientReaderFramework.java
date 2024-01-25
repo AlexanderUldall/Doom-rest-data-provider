@@ -10,11 +10,11 @@ import provider.filter.QueueFilterWrapper;
 import provider.reader.base.StreamReader;
 
 @Slf4j
-public class TwitchChatReader extends StreamReader {
+public class TwitchClientReaderFramework extends StreamReader {
 
     private ITwitchClient twitchClient;
 
-    public TwitchChatReader(String channelId, QueueFilterWrapper queueFilterWrapper) {
+    public TwitchClientReaderFramework(String channelId, QueueFilterWrapper queueFilterWrapper) {
         super(queueFilterWrapper, channelId);
 
         TwitchClientBuilder clientBuilder = TwitchClientBuilder.builder();

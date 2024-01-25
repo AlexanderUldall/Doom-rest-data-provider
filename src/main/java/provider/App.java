@@ -5,7 +5,7 @@ import provider.configuration.Configuration;
 import provider.consumer.QueueConsumer;
 import provider.filter.QueueFilterWrapper;
 import provider.reader.kick.Kick4JChatReader;
-import provider.reader.twitch.TwitchChatReader;
+import provider.reader.twitch.TwitchClientReaderFramework;
 import provider.reader.youtube.YouTubeLiveChatReaderFramework;
 import provider.reader.youtube.YoutubeChatReader;
 
@@ -20,8 +20,8 @@ public class App {
         Configuration configuration = new Configuration();
 
         if (isNotBlank(configuration.getTwitchChannelId())) {
-            TwitchChatReader twitchChatReader = new TwitchChatReader(configuration.getTwitchChannelId(), queueFilterWrapper);
-            twitchChatReader.start();
+            TwitchClientReaderFramework twitchClientReaderFramework = new TwitchClientReaderFramework(configuration.getTwitchChannelId(), queueFilterWrapper);
+            twitchClientReaderFramework.start();
         }
 
         if (isNotBlank(configuration.getYoutubeChannelId())) {
