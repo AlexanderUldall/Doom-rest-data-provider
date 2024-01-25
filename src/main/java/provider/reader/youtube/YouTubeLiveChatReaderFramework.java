@@ -11,10 +11,10 @@ import provider.reader.base.StreamReader;
 import java.io.IOException;
 
 @Slf4j
-public class YouTubeLiveChatFramework extends StreamReader {
+public class YouTubeLiveChatReaderFramework extends StreamReader {
     private YouTubeLiveChat youTubeLiveChat;
 
-    public YouTubeLiveChatFramework(String channelId, QueueFilterWrapper queueFilterWrapper) throws IOException {
+    public YouTubeLiveChatReaderFramework(String channelId, QueueFilterWrapper queueFilterWrapper) throws IOException {
         super(queueFilterWrapper, channelId);
         youTubeLiveChat = new YouTubeLiveChat(channelId, true, IdType.VIDEO);
     }
