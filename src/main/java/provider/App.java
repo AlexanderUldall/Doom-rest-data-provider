@@ -6,6 +6,7 @@ import provider.consumer.QueueConsumer;
 import provider.filter.QueueFilterWrapper;
 import provider.reader.kick.Kick4JChatReader;
 import provider.reader.twitch.TwitchChatReader;
+import provider.reader.youtube.YouTubeLiveChatFramework;
 import provider.reader.youtube.YoutubeChatReader;
 
 import java.io.IOException;
@@ -26,6 +27,11 @@ public class App {
         if (isNotBlank(configuration.getYoutubeChannelId())) {
             YoutubeChatReader youtubeChatReader = new YoutubeChatReader(configuration.getYoutubeChannelId(), queueFilterWrapper);
             youtubeChatReader.start();
+        }
+
+        if (isNotBlank(configuration.getYoutubeFrameworkChannelId())) {
+            YouTubeLiveChatFramework youTubeLiveChatFramework = new YouTubeLiveChatFramework(configuration.getYoutubeFrameworkChannelId(), queueFilterWrapper);
+            youTubeLiveChatFramework.start();
         }
 
         if (isNotBlank(configuration.getKickChannelId())) {

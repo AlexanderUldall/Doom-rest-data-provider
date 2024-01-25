@@ -11,6 +11,7 @@ public class Configuration {
 
     private String kickChannelId;
     private String youtubeChannelId;
+    private String youtubeFrameworkChannelId;
     private String twitchChannelId;
 
     public Configuration() throws IOException {
@@ -22,6 +23,7 @@ public class Configuration {
 
         this.kickChannelId = appProps.getProperty("kickChannelId");
         this.youtubeChannelId = appProps.getProperty("youtubeChannelId");
+        this.youtubeFrameworkChannelId = appProps.getProperty("youtubeFrameworkChannelId");
         this.twitchChannelId = appProps.getProperty("twitchChannelId");
 
     }

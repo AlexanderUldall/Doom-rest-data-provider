@@ -21,10 +21,12 @@ public class QueueFilterWrapper {
 
     public boolean offer(ChatMessage chatMessage) {
         // TODO do syntax filter here eg MANCUBUS X Y
-        boolean validSyntax = chatMessage.getMessage().contains("a"); // placeholder
+//        boolean validSyntax = chatMessage.getMessage().contains("a"); // placeholder
+        boolean validSyntax = true; // placeholder
 
-        LocalDateTime timeCreated = latestPlayerMonsterSpawnMap.get(chatMessage.getUserName());
-        boolean allowMonsterSpawn = timeCreated == null || timeCreated.isAfter(LocalDateTime.now().plusMinutes(1));
+//        LocalDateTime timeCreated = latestPlayerMonsterSpawnMap.get(chatMessage.getUserName());
+//        boolean allowMonsterSpawn = timeCreated == null || timeCreated.isAfter(LocalDateTime.now().plusMinutes(1));
+        boolean allowMonsterSpawn = true;
 
         if (validSyntax && allowMonsterSpawn) {
             latestPlayerMonsterSpawnMap.put(chatMessage.getUserName(), LocalDateTime.now());
