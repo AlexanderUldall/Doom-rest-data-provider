@@ -12,11 +12,11 @@ import provider.filter.QueueFilterWrapper;
 import provider.reader.base.StreamReader;
 
 @Slf4j
-public class TwitchIRCReader extends StreamReader {
+public class TwitchPircBotXReaderFramework extends StreamReader {
 
     private PircBotX bot;
 
-    public TwitchIRCReader(String channelId, QueueFilterWrapper queueFilterWrapper) {
+    public TwitchPircBotXReaderFramework(String channelId, QueueFilterWrapper queueFilterWrapper) {
         super(queueFilterWrapper, channelId);
         try {
 
