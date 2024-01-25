@@ -27,7 +27,6 @@ public class YouTubeLiveChatFramework extends StreamReader {
 
                     youTubeLiveChat.update();
                     for (ChatItem item : youTubeLiveChat.getChatItems()) {
-//                        System.out.println("PRINTEDLINE "+ item.getMessage());
                         onChannelMessage(StreamingSite.YOUTUBE, item.getAuthorName(), item.getMessage());
                     }
                     liveStatusCheckCycle++;
