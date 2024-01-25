@@ -8,9 +8,8 @@
         <maven.compiler.source>19</maven.compiler.source>
         <maven.compiler.target>19</maven.compiler.target>
     </properties>
-    <name>Archetype - youtube-live-chat-reader</name>
+    <name>youtube-live-chat-reader</name>
     <url>http://maven.apache.org</url>
-
 
     <dependencies>
         <!--         Bots-->
